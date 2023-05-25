@@ -12,8 +12,8 @@ variable "common_labels" {
 
 variable "labels" {
   type = list(object({
-    pairs             = map(string)
-    include_selectors = bool
+    pairs             = optional(map(string), null)
+    include_selectors = optional(bool, null)
   }))
   description = "Set Kustomize labels using labels key/value pairs. Sets labels without also automatically injecting corresponding selectors."
   default     = null
@@ -27,17 +27,17 @@ variable "components" {
 
 variable "config_map_generator" {
   type = list(object({
-    name      = string
-    namespace = string
-    behavior  = string
-    envs      = list(string)
-    files     = list(string)
-    literals  = list(string)
-    options = list(object({
-      labels                   = map(string)
-      annotations              = map(string)
-      disable_name_suffix_hash = bool
-    }))
+    name      = optional(string, null)
+    namespace = optional(string, null)
+    behavior  = optional(string, null)
+    envs      = optional(list(string), null)
+    files     = optional(list(string), null)
+    literals  = optional(list(string), null)
+    options = optional(list(object({
+      labels                   = optional(map(string), null)
+      annotations              = optional(map(string), null)
+      disable_name_suffix_hash = optional(bool, null)
+    })), null)
   }))
   description = "Define one or more Kustomize configMapGenerators using config_map_generator blocks."
   default     = null
@@ -57,9 +57,9 @@ variable "generators" {
 
 variable "generator_options" {
   type = list(object({
-    labels                   = map(string)
-    annotations              = map(string)
-    disable_name_suffix_hash = bool
+    labels                   = optional(map(string), null)
+    annotations              = optional(map(string), null)
+    disable_name_suffix_hash = optional(bool, null)
   }))
   description = "Set options for all generators in this Kustomization."
   default     = null
@@ -67,10 +67,10 @@ variable "generator_options" {
 
 variable "images" {
   type = list(object({
-    name     = string
-    new_name = string
-    new_tag  = string
-    digest   = string
+    name     = optional(string, null)
+    new_name = optional(string, null)
+    new_tag  = optional(string, null)
+    digest   = optional(string, null)
   }))
   description = "Customize container images using images blocks."
   default     = null
@@ -78,12 +78,12 @@ variable "images" {
 
 variable "kustomize_options" {
   type = list(object({
-    load_restrictor      = string
-    enable_alpha_plugins = bool
-    enable_exec          = bool
-    enable_helm          = bool
-    enable_star          = bool
-    helm_path            = string
+    load_restrictor      = optional(string, null)
+    enable_alpha_plugins = optional(bool, null)
+    enable_exec          = optional(bool, null)
+    enable_helm          = optional(bool, null)
+    enable_star          = optional(bool, null)
+    helm_path            = optional(string, null)
   }))
   description = "Kustomize options."
   default     = null
@@ -109,21 +109,21 @@ variable "name_suffix" {
 
 variable "patches" {
   type = list(object({
-    options = list(object({
-      allow_kind_change = bool
+    options = optional(list(object({
+      allow_kind_change = optional(bool, null)
       allow_name_change = bool
-    }))
-    path  = string
-    patch = string
-    target = list(object({
-      group               = string
-      version             = string
-      kind                = string
-      name                = string
-      namespace           = string
-      label_selector      = string
-      annotation_selector = string
-    }))
+    })), null)
+    path  = optional(string, null)
+    patch = optional(string, null)
+    target = optional(list(object({
+      group               = optional(string, null)
+      version             = optional(string, null)
+      kind                = optional(string, null)
+      name                = optional(string, null)
+      namespace           = optional(string, null)
+      label_selector      = optional(string, null)
+      annotation_selector = optional(string, null)
+    })), null)
   }))
   description = "Define Kustomize patches to modify Kubernetes resources using patches blocks."
   default     = null
@@ -131,42 +131,42 @@ variable "patches" {
 
 variable "replacements" {
   type = list(object({
-    path = string
-    source = list(object({
-      group      = string
-      version    = string
-      kind       = string
-      name       = string
-      namespace  = string
-      field_path = string
-      options = list(object({
-        delimiter = string
-        index     = number
-        create    = bool
-      }))
-    }))
-    target = list(object({
-      select = list(object({
-        group     = string
-        version   = string
-        kind      = string
-        name      = string
-        namespace = string
-      }))
-      reject = list(object({
-        group     = string
-        version   = string
-        kind      = string
-        name      = string
-        namespace = string
-      }))
-      field_paths = list(string)
-      options = list(object({
-        delimiter = string
-        index     = number
-        create    = bool
-      }))
-    }))
+    path = optional(string, null)
+    source = optional(list(object({
+      group      = optional(string, null)
+      version    = optional(string, null)
+      kind       = optional(string, null)
+      name       = optional(string, null)
+      namespace  = optional(string, null)
+      field_path = optional(string, null)
+      options = optional(list(object({
+        delimiter = optional(string, null)
+        index     = optional(number, null)
+        create    = optional(bool, null)
+      })), null)
+    })), null)
+    target = optional(list(object({
+      select = optional(list(object({
+        group     = optional(string, null)
+        version   = optional(string, null)
+        kind      = optional(string, null)
+        name      = optional(string, null)
+        namespace = optional(string, null)
+      })), null)
+      reject = optional(list(object({
+        group     = optional(string, null)
+        version   = optional(string, null)
+        kind      = optional(string, null)
+        name      = optional(string, null)
+        namespace = optional(string, null)
+      })), null)
+      field_paths = optional(list(string), null)
+      options = optional(list(object({
+        delimiter = optional(string, null)
+        index     = optional(number, null)
+        create    = optional(bool, null)
+      })), null)
+    })), null)
   }))
   description = "Define Kustomize replacements to modify Kubernetes resources using replacements blocks."
   default     = null
@@ -174,8 +174,8 @@ variable "replacements" {
 
 variable "replicas" {
   type = list(object({
-    name  = string
-    count = number
+    name  = optional(string, null)
+    count = optional(number, null)
   }))
   description = "Set the Kustomize replicas to change the number of replicas of a resource."
   default     = null
@@ -189,18 +189,18 @@ variable "resources" {
 
 variable "secret_generator" {
   type = list(object({
-    name      = string
-    namespace = string
-    behavior  = string
-    type      = string
-    envs      = list(string)
-    files     = list(string)
-    literals  = list(string)
-    options = list(object({
-      labels                   = map(string)
-      annotations              = map(string)
-      disable_name_suffix_hash = bool
-    }))
+    name      = optional(string, null)
+    namespace = optional(string, null)
+    behavior  = optional(string, null)
+    type      = optional(string, null)
+    envs      = optional(list(string), null)
+    files     = optional(list(string), null)
+    literals  = optional(list(string), null)
+    options = optional(list(object({
+      labels                   = optional(map(string), null)
+      annotations              = optional(map(string), null)
+      disable_name_suffix_hash = optional(bool, null)
+    })), null)
   }))
   description = "Define one or more Kustomize secretGenerators using secret_generator blocks."
   default     = null
@@ -216,16 +216,16 @@ variable "vars" {
   type = list(object({
     name = string
     obj_ref = list(object({
-      api_version = string
-      group       = string
-      version     = string
-      kind        = string
-      name        = string
-      namespace   = string
+      api_version = optional(string, null)
+      group       = optional(string, null)
+      version     = optional(string, null)
+      kind        = optional(string, null)
+      name        = optional(string, null)
+      namespace   = optional(string, null)
     }))
-    field_ref = list(object({
-      field_path = string
-    }))
+    field_ref = optional(list(object({
+      field_path = optional(string, null)
+    })), null)
   }))
   description = "Define Kustomize vars to substitute name references. E.g. the name of a generated secret including its hash suffix."
   default     = null
@@ -233,16 +233,16 @@ variable "vars" {
 
 variable "helm_charts" {
   type = list(object({
-    name         = string
-    version      = string
-    repo         = string
-    release_name = string
-    namespace    = string
-    include_crds = bool
+    name         = optional(string, null)
+    version      = optional(string, null)
+    repo         = optional(string, null)
+    release_name = optional(string, null)
+    namespace    = optional(string, null)
+    include_crds = optional(bool, null)
     # skip_tests    = bool
-    values_merge  = string
-    values_file   = string
-    values_inline = string
+    values_merge  = optional(string, null)
+    values_file   = optional(string, null)
+    values_inline = optional(string, null)
   }))
   description = "Define Kustomize helmCharts."
   default     = null
@@ -250,8 +250,8 @@ variable "helm_charts" {
 
 variable "helm_globals" {
   type = list(object({
-    chart_home  = string
-    config_home = string
+    chart_home  = optional(string, null)
+    config_home = optional(string, null)
   }))
   description = "Define Kustomize helmGlobals in support of helm_charts."
   default     = null
