@@ -37,7 +37,7 @@ variable "config_map_generator" {
       labels                   = optional(map(string), null)
       annotations              = optional(map(string), null)
       disable_name_suffix_hash = optional(bool, null)
-    })), null)
+    })), [])
   }))
   description = "Define one or more Kustomize configMapGenerators using config_map_generator blocks."
   default     = []
@@ -112,7 +112,7 @@ variable "patches" {
     options = optional(list(object({
       allow_kind_change = optional(bool, null)
       allow_name_change = bool
-    })), null)
+    })), [])
     path  = optional(string, null)
     patch = optional(string, null)
     target = optional(list(object({
@@ -123,7 +123,7 @@ variable "patches" {
       namespace           = optional(string, null)
       label_selector      = optional(string, null)
       annotation_selector = optional(string, null)
-    })), null)
+    })), [])
   }))
   description = "Define Kustomize patches to modify Kubernetes resources using patches blocks."
   default     = []
@@ -143,8 +143,8 @@ variable "replacements" {
         delimiter = optional(string, null)
         index     = optional(number, null)
         create    = optional(bool, null)
-      })), null)
-    })), null)
+      })), [])
+    })), [])
     target = optional(list(object({
       select = optional(list(object({
         group     = optional(string, null)
@@ -152,21 +152,21 @@ variable "replacements" {
         kind      = optional(string, null)
         name      = optional(string, null)
         namespace = optional(string, null)
-      })), null)
+      })), [])
       reject = optional(list(object({
         group     = optional(string, null)
         version   = optional(string, null)
         kind      = optional(string, null)
         name      = optional(string, null)
         namespace = optional(string, null)
-      })), null)
+      })), [])
       field_paths = optional(list(string), null)
       options = optional(list(object({
         delimiter = optional(string, null)
         index     = optional(number, null)
         create    = optional(bool, null)
-      })), null)
-    })), null)
+      })), [])
+    })), [])
   }))
   description = "Define Kustomize replacements to modify Kubernetes resources using replacements blocks."
   default     = []
@@ -200,7 +200,7 @@ variable "secret_generator" {
       labels                   = optional(map(string), null)
       annotations              = optional(map(string), null)
       disable_name_suffix_hash = optional(bool, null)
-    })), null)
+    })), [])
   }))
   description = "Define one or more Kustomize secretGenerators using secret_generator blocks."
   default     = []
@@ -214,18 +214,18 @@ variable "transformers" {
 
 variable "vars" {
   type = list(object({
-    name = string
-    obj_ref = list(object({
+    name = optional(string, null)
+    obj_ref = optional(list(object({
       api_version = optional(string, null)
       group       = optional(string, null)
       version     = optional(string, null)
       kind        = optional(string, null)
       name        = optional(string, null)
       namespace   = optional(string, null)
-    }))
+    })), [])
     field_ref = optional(list(object({
       field_path = optional(string, null)
-    })), null)
+    })), [])
   }))
   description = "Define Kustomize vars to substitute name references. E.g. the name of a generated secret including its hash suffix."
   default     = []
