@@ -16,7 +16,7 @@ variable "labels" {
     include_selectors = optional(bool, null)
   }))
   description = "Set Kustomize labels using labels key/value pairs. Sets labels without also automatically injecting corresponding selectors."
-  default     = null
+  default     = []
 }
 
 variable "components" {
@@ -40,7 +40,7 @@ variable "config_map_generator" {
     })), null)
   }))
   description = "Define one or more Kustomize configMapGenerators using config_map_generator blocks."
-  default     = null
+  default     = []
 }
 
 variable "crds" {
@@ -62,7 +62,7 @@ variable "generator_options" {
     disable_name_suffix_hash = optional(bool, null)
   }))
   description = "Set options for all generators in this Kustomization."
-  default     = null
+  default     = []
 }
 
 variable "images" {
@@ -73,7 +73,7 @@ variable "images" {
     digest   = optional(string, null)
   }))
   description = "Customize container images using images blocks."
-  default     = null
+  default     = []
 }
 
 variable "kustomize_options" {
@@ -86,7 +86,7 @@ variable "kustomize_options" {
     helm_path            = optional(string, null)
   }))
   description = "Kustomize options."
-  default     = null
+  default     = []
 }
 
 variable "name_prefix" {
@@ -126,7 +126,7 @@ variable "patches" {
     })), null)
   }))
   description = "Define Kustomize patches to modify Kubernetes resources using patches blocks."
-  default     = null
+  default     = []
 }
 
 variable "replacements" {
@@ -169,7 +169,7 @@ variable "replacements" {
     })), null)
   }))
   description = "Define Kustomize replacements to modify Kubernetes resources using replacements blocks."
-  default     = null
+  default     = []
 }
 
 variable "replicas" {
@@ -178,7 +178,7 @@ variable "replicas" {
     count = optional(number, null)
   }))
   description = "Set the Kustomize replicas to change the number of replicas of a resource."
-  default     = null
+  default     = []
 }
 
 variable "resources" {
@@ -203,7 +203,7 @@ variable "secret_generator" {
     })), null)
   }))
   description = "Define one or more Kustomize secretGenerators using secret_generator blocks."
-  default     = null
+  default     = []
 }
 
 variable "transformers" {
@@ -228,7 +228,7 @@ variable "vars" {
     })), null)
   }))
   description = "Define Kustomize vars to substitute name references. E.g. the name of a generated secret including its hash suffix."
-  default     = null
+  default     = []
 }
 
 variable "helm_charts" {
@@ -245,7 +245,7 @@ variable "helm_charts" {
     values_inline = optional(string, null)
   }))
   description = "Define Kustomize helmCharts."
-  default     = null
+  default     = []
 }
 
 variable "helm_globals" {
@@ -254,5 +254,5 @@ variable "helm_globals" {
     config_home = optional(string, null)
   }))
   description = "Define Kustomize helmGlobals in support of helm_charts."
-  default     = null
+  default     = []
 }
