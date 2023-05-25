@@ -1,11 +1,13 @@
 variable "common_annotations" {
   type        = map(string)
   description = "Set Kustomize commonAnnotations using common_annotations key/value pairs."
+  default     = null
 }
 
 variable "common_labels" {
   type        = map(string)
   description = "Set Kustomize commonLabels using common_labels key/value pairs. Sets labels and immutable labelSelectors."
+  default     = null
 }
 
 variable "labels" {
@@ -14,11 +16,13 @@ variable "labels" {
     include_selectors = bool
   }))
   description = "Set Kustomize labels using labels key/value pairs. Sets labels without also automatically injecting corresponding selectors."
+  default     = null
 }
 
 variable "components" {
   type        = list(string)
   description = "Add one or more paths to Kustomize components to inherit from."
+  default     = null
 }
 
 variable "config_map_generator" {
@@ -36,16 +40,19 @@ variable "config_map_generator" {
     }))
   }))
   description = "Define one or more Kustomize configMapGenerators using config_map_generator blocks."
+  default     = null
 }
 
 variable "crds" {
   type        = list(string)
   description = "One or more paths to CRD schema definitions as expected by Kustomize."
+  default     = null
 }
 
 variable "generators" {
   type        = list(string)
   description = "One or more paths to Kustomize generators."
+  default     = null
 }
 
 variable "generator_options" {
@@ -55,6 +62,7 @@ variable "generator_options" {
     disable_name_suffix_hash = bool
   }))
   description = "Set options for all generators in this Kustomization."
+  default     = null
 }
 
 variable "images" {
@@ -65,6 +73,7 @@ variable "images" {
     digest   = string
   }))
   description = "Customize container images using images blocks."
+  default     = null
 }
 
 variable "kustomize_options" {
@@ -77,21 +86,25 @@ variable "kustomize_options" {
     helm_path            = string
   }))
   description = "Kustomize options."
+  default     = null
 }
 
 variable "name_prefix" {
   type        = string
   description = "Set a prefix to add to all resource names."
+  default     = null
 }
 
 variable "namespace" {
   type        = string
   description = "Set a namespace for all namespaced resources."
+  default     = null
 }
 
 variable "name_suffix" {
   type        = string
   description = "Set a suffix to add to all resource names."
+  default     = null
 }
 
 variable "patches" {
@@ -113,6 +126,7 @@ variable "patches" {
     }))
   }))
   description = "Define Kustomize patches to modify Kubernetes resources using patches blocks."
+  default     = null
 }
 
 variable "replacements" {
@@ -155,6 +169,7 @@ variable "replacements" {
     }))
   }))
   description = "Define Kustomize replacements to modify Kubernetes resources using replacements blocks."
+  default     = null
 }
 
 variable "replicas" {
@@ -163,11 +178,13 @@ variable "replicas" {
     count = number
   }))
   description = "Set the Kustomize replicas to change the number of replicas of a resource."
+  default     = null
 }
 
 variable "resources" {
   type        = list(string)
   description = "List of Kustomization resources to inherit from or include."
+  default     = null
 }
 
 variable "secret_generator" {
@@ -186,11 +203,13 @@ variable "secret_generator" {
     }))
   }))
   description = "Define one or more Kustomize secretGenerators using secret_generator blocks."
+  default     = null
 }
 
 variable "transformers" {
   type        = list(string)
   description = "List of paths to Kustomization transformers."
+  default     = null
 }
 
 variable "vars" {
@@ -209,22 +228,24 @@ variable "vars" {
     }))
   }))
   description = "Define Kustomize vars to substitute name references. E.g. the name of a generated secret including its hash suffix."
+  default     = null
 }
 
 variable "helm_charts" {
   type = list(object({
-    name          = string
-    version       = string
-    repo          = string
-    release_name  = string
-    namespace     = string
-    include_crds  = bool
+    name         = string
+    version      = string
+    repo         = string
+    release_name = string
+    namespace    = string
+    include_crds = bool
     # skip_tests    = bool
     values_merge  = string
     values_file   = string
     values_inline = string
   }))
   description = "Define Kustomize helmCharts."
+  default     = null
 }
 
 variable "helm_globals" {
@@ -233,4 +254,5 @@ variable "helm_globals" {
     config_home = string
   }))
   description = "Define Kustomize helmGlobals in support of helm_charts."
+  default     = null
 }
